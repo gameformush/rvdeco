@@ -1,0 +1,838 @@
+@font-face 
+  font-family: Abster
+  src: url("/fonts/abster.otf") format("opentype")
+
+.clearfix::after
+  content: ""
+  clear: both
+  display: table
+
+.clear 
+  clear: both
+  float: none
+  width: 100%
+
+
+body
+  // background-image: url('../imgs/template.png')
+  background-size: cover
+  background-repeat: no-repeat
+  width: 100vw
+  height: 100vh
+  box-sizing: border-box
+  overflow-x: hidden
+  
+
+.rotated-text 
+  display: inline-block
+  overflow: hidden
+  width: 1.5em
+
+.rotated-text__inner 
+  display: inline-block
+  white-space: nowrap
+  /* this is for shity "non IE" browsers
+      that dosn't support writing-mode */
+
+  -webkit-transform-origin: 0 0
+  -moz-transform-origin: 0 0
+  -o-transform-origin: 0 0
+  transform-origin: 0 0
+
+  /* IE9+ */
+  -ms-transform: none
+  -ms-transform-origin: none
+  /* IE8+ */
+  -ms-writing-mode: tb-rl
+  /* IE7 and below */
+  writing-mode: tb-rl
+
+.rotated-text__inner:before 
+  content: ""
+  float: left
+  margin-top: 100%
+
+
+.icon
+  display: inline-block
+  background-repeat: no-repeat
+
+.phone-icon
+  background-image: url('../imgs/phone-icon.png')
+  width: 30px
+  height: 30px 
+
+.envelop-icon
+  background-image: url('../imgs/envelop-icon.png')
+  height: 30px
+  width: 35px
+
+.insta-icon
+  background-image: url('../imgs/insta.png')
+  width: 42px
+  height: 42px
+
+.facebook-icon
+  background-image: url('../imgs/facebook.png')
+  width: 44px
+  height: 44px
+
+.twiter-icon
+  background-image: url('../imgs/twiter.png')
+  width: 44px
+  height: 44px
+
+.calc-icon
+  background-image: url('../imgs/calc.png')
+  height: 50px
+  width: 40px
+
+.phone-big-icon
+  background-image: url('../imgs/phone-big.png')
+  width: 45px
+  height: 45px
+
+.env-big-icon
+  background-image: url('../imgs/env-dig.png')
+  width: 50px
+  height: 35px
+  background-size: contain
+
+.aside-menu 
+  background-color: #4f4d4d
+  position: fixed
+  left: 0
+  top: 0
+  height: 100vh
+  width: 120px
+  color: white
+  display: flex
+  flex-direction: column
+  justify-content: space-evenly
+  align-items:  stretch
+  text-align: center
+  z-index: 99999
+
+  .menu-icon
+    padding-top: 40px
+    flex-grow: 1
+    font-size: 3em
+    position: relative
+
+    label
+      cursor: pointer
+      z-index: 99999
+
+    #main-menu
+      display: none
+
+    #main-menu:checked ~ nav 
+      display: block
+    nav
+      position: absolute
+      display: none
+      height: 100vh
+      background-color: rgba(79,77,77,.8)
+      top: 0
+      left: 0
+      padding-top: 100px
+      margin-left: 120px
+      width: 30vw
+
+      .brand-menu
+        font-family: "Abster", sans-serif
+        text-transform: uppercase
+        position: absolute
+        top: -10%
+        left: 140px
+        color: black
+
+      .phone, .email
+        font-size: 0.4em
+        text-transform: uppercase
+        text-align: left
+        vertical-align: top
+        padding-left: 2.2em
+        margin: 20px 0 20px 0
+        display: flex
+        align-items: center
+
+        .icon
+          margin-right:  20px
+        
+
+      .overlap-wrapper
+        position: absolute
+        left: -120px
+        z-index: 4
+
+      .hider
+        background-color: #4f4d4d
+        z-index: 3
+        height: 100vh
+        width: 120px
+        position: absolute
+        left: -120px
+      
+      .copy-menu
+        position: absolute
+        color: black
+        text-align: left
+        font-size: 6pt
+        bottom: 120px
+        left: 10%
+
+        span
+          font-size: 20pt
+
+        p
+          display: inline-block
+
+      .menu-items
+        margin-top: 2em
+
+      .phone, .mail 
+        z-index: 10 
+
+      ul
+        list-style: none
+
+        .active
+          border-bottom: 1px white solid
+        li
+          padding-left: 200px
+          font-size: 0.5em
+          text-transform: uppercase
+          line-height: 55px
+        a
+          color: white
+          display: inline-block
+          line-height: 30px
+          text-align: left
+          float: left
+            
+
+  .brand 
+    flex-grow: 1
+    width: 0
+    text-align: center
+    width: 100%
+
+    .brand-text
+      color: red
+      font-size: 30pt
+      font-family: "Abster", sans-serif
+      text-transform: uppercase
+
+    .rotated-text
+      width: 100%
+      height: 300px
+
+    span
+      transform: translate(-15px, 200px) rotate(-180deg)
+      width: 0
+      text-align: left 
+
+  .feedback-menu
+    flex-grow: 2
+
+    .call-us-icon
+      margin-bottom: 30px
+  
+
+  .copyright 
+    flex-grow: 1
+    text-align: center
+    display: flex
+    flex-direction: column
+    padding-top: 30px
+    color: black
+
+    .copy 
+      flex-grow: 1
+      font-size: 2em
+      padding-right: 7px 
+    
+
+    .rotated-text 
+      font-size: 8pt
+      flex-grow: 1
+      height: 180px
+      width: 100%
+      span 
+        transform: translate(-15px, 190px) rotate(-180deg)
+        width: 0
+        text-align: left
+      
+
+.container
+  width: calc(100vw - 120px)
+  margin-left: 120px
+
+  & > section
+    height: 100vh
+
+.calc
+  display: flex
+  margin: 30px auto
+  background: red
+  color: white
+  width: 265px
+  height: 80px
+  border-radius: 10px
+  font-size: 20pt
+  align-items: center
+  span 
+    margin: 10px
+
+
+#front
+  position: relative
+  background-image: url('../imgs/home_bg.png')
+  .top
+    padding: 2% 5% 0 4%
+
+    .front-left
+      float: left
+      
+
+      .logo
+        height: 35px
+        width: 180px
+        background-image: url('../imgs/logo.png')
+        background-repeat: no-repeat
+        display: inline-block
+        margin-top: 10px
+
+      .icon
+        margin-right: 10px
+
+    .front-right
+      float: right
+      font-size: 15pt
+      font-weight: bold
+      letter-spacing: 0.5
+      text-transform: uppercase
+
+      a
+        color: black
+        text-shadow: 1px 1px 20px white
+
+  .center-block
+    width: 800px
+    margin: 0 auto
+    display: block
+    margin-top: 22vh
+    text-align: center
+
+    .spec
+      color: white
+      font-size: 40pt
+      font-weight: bold
+      text-transform: uppercase
+    
+    .separator-front
+      margin: 15px auto
+      height: 6px
+      width: 140px
+      display: block
+
+      background: black
+
+    .dreams
+      font-size: 16pt
+      text-transform: uppercase
+    
+    .calc
+      display: flex
+      margin: 30px auto
+      background: red
+      color: white
+      width: 265px
+      height: 80px
+      border-radius: 10px
+      font-size: 20pt
+      align-items: center
+      span 
+        margin: 10px
+
+  .bottom-buttons
+    position: absolute
+    right: 5%
+    bottom: 3%
+    display: flex
+
+    a
+      margin: 5px
+      display: flex
+      height: 100px
+      width: 100px
+      border-radius: 50%
+      background-color: red
+      text-align: center
+      align-items: center
+
+      span
+        margin: 30px
+  
+  .arrow-down
+    height: 15px
+    width: 40px
+    background-image: url('../imgs/arrow-down.png')
+
+    background-size: 100vw
+    display: block
+    position: absolute
+    bottom: 3%
+    left: 45%
+
+
+.section-title
+  position: relative
+  display: inline-block
+  .actual
+    font-size: 3.2vw
+    text-transform: uppercase
+    position: absolute
+    top: 60%
+    left: 0
+    width: 1000px
+
+    .underline
+      border-bottom: 5px solid black
+
+  .bg
+    font-size: 10vw
+    color: #efefef
+    text-shadow: 0 0 px rgba(0,0,0, 0.3)
+    .second
+      line-height: 0
+
+
+#why-us
+  background-color: white
+  position: relative
+
+  .section-title
+    margin-left: 4em
+
+  .blob-block
+    display: block
+    width: 65%
+    margin: 5% auto
+    position: relative
+    text-transform: uppercase
+    font-size: 10pt
+  
+    .blob
+      width: 450px
+      img
+        width: 100%
+
+    p
+      width: 1000px
+      position: absolute
+    p:nth-child(6)
+      top: 33px
+      left: 357px
+    p:nth-child(5)
+      top: 117px
+      left: 440px
+    p:nth-child(4)
+      top: 232px
+      left: 473px
+    p:nth-child(2)
+      top: 350px
+      left: 440px
+    p:nth-child(3)
+      top: 431px
+      left: 355px
+
+#trust
+  position: relative
+  background-color: white
+
+  .section-title
+    margin: 50px auto
+    margin-bottom: 17vh
+    display: block
+    width: 800px
+    text-align: center
+    .bg
+      font-size: 7.5vw
+      font-weight: bold
+    .actual
+      top: 60%
+      width: 800px
+  
+  .companys
+    position: relative
+    width: 80%
+    margin: 0 auto
+    .row
+      display: flex
+      flex-direction: row
+      align-items: center
+      justify-content: space-between
+      margin-top: 70px
+    img
+      display: table-column
+      max-width: 300px
+      margin: 0 10% 0 10%
+
+.form
+  input::placeholder, textarea::placeholder
+    text-transform: uppercase
+    font-size: 12px
+    
+  
+  input, textarea
+    margin: 20px 0 20px 0
+    border-radius: 17px
+    border: 3px solid black
+    padding: 10px 15px 10px 15px
+  
+  input[type=submit]
+    background-color: #4f4c4c
+    color: white 
+    text-transform: uppercase
+    border: none
+    width: 100%
+  
+.form-title
+  text-transform: uppercase
+  margin-top: 15vh
+  h3
+    margin-left: 10px
+    font-size: 16pt
+    line-height: 9vh
+  p
+    margin-left: 10px
+    margin-bottom: 10px
+    font-size: 10pt
+    text-align: justify
+
+  input[type=submit]
+    width: 100%
+  
+
+
+#contact-us
+  background-color: white
+  position: relative
+  .section-title
+    margin-left: -100px
+    width: 770px
+    .actual
+      text-align: center
+      font-size: 3.7vw//47pt
+      width: 770px
+      top: 65%
+    .bg
+      text-align: center
+      font-size: 10vw//130pt
+      // line-height: 10vh
+    
+  .wrapper 
+    display: flex
+    flex-direction: row
+    align-items: center
+    // justify-content: space-between
+    padding: 0 8vw 0 8vw
+
+    #newsletter
+      flex-grow: 1
+      .form-title
+        width: 30vw
+        .block-left
+          width: 70% 
+      
+    #massage-us
+      flex-grow: 2
+      margin-top: 50px
+      .form-title
+        width: 55%
+      
+      .form
+        textarea
+          width: 94%
+          resize: none
+
+
+#cont-form
+  .section-title
+    margin: 0 auto
+    margin-bottom: 17vh
+    display: block
+    width: 800px
+    text-align: center
+    .bg
+      font-size: 7.5vw
+      font-weight: bold
+    .actual
+      top: 60%
+      width: 800px
+
+  .top
+    padding: 2% 5% 0 4%
+
+    .front-right
+      float: right
+      font-size: 15pt
+      font-weight: bold
+      letter-spacing: 0.5
+      text-transform: uppercase
+
+      a
+        color: black
+        text-shadow: 1px 1px 20px white
+
+  .wrapper
+    display: flex
+    width: 70vw
+    margin: 100px auto
+    flex-direction: row
+    align-items: center
+    justify-content: space-between
+    position: relative
+
+    .search-info, .search-form
+      width: 22vw
+
+    .search-form
+      color: white
+      background-color: #282828
+      border-radius: 10px
+      padding: 50px 40px 50px 40px
+      label
+        display: block
+        text-transform: uppercase
+        margin-top: 10px
+      input
+        border-radius: 10px
+        height: 30px
+        width: 90%
+        line-height: 0
+        margin-top: 5px
+      input[name=message]
+        height: 70px
+      input[type=submit]
+        background-color: white
+        color: black
+        font-weight: bold
+        width: 50%
+        line-height: 40px
+        height: 60px
+    .search-info
+      text-transform: uppercase
+      text-align: center
+      line-height: 2em
+      font-size: 16pt
+      p
+        z-index: 9999
+      .search-icon
+        position: absolute
+        bottom: -120px
+        left: -50px
+        height: 400px
+        z-index: 1
+        filter:  opacity(30%)
+
+#gallery
+  position: relative
+  .section-title
+    margin: 0 auto
+    margin-bottom: 17vh
+    display: block
+    width: 800px
+    text-align: center
+    .bg
+      font-size: 7.5vw
+      font-weight: bold
+    .actual
+      top: 60%
+      width: 800px
+
+  .top
+    padding: 2% 5% 0 4%
+
+    .front-right
+      float: right
+      font-size: 15pt
+      font-weight: bold
+      letter-spacing: 0.5
+      text-transform: uppercase
+
+      a
+        color: black
+        text-shadow: 1px 1px 20px white
+  .gallery-menu
+    ul
+      text-align: center
+      li
+        display: inline-block
+        a
+          display: block
+          margin: 0 20px 0 20px
+          line-height: 40px
+          color: black
+          &:hover
+            border-bottom: 2px solid black
+        .active
+          border-bottom: 2px solid black
+  .gallery
+    position: relative
+    a 
+      img 
+        float: left
+        width: 20%
+        height: auto
+        border: 2px solid #fff
+        -webkit-transition: -webkit-transform .15s ease
+        -moz-transition: -moz-transform .15s ease
+        -o-transition: -o-transform .15s ease
+        -ms-transition: -ms-transform .15s ease
+        transition: transform .15s ease
+        position:relative
+      
+      
+      &:hover 
+        img 
+          -webkit-transform: scale(1.05)
+          -moz-transform: scale(1.05)
+          -o-transform: scale(1.05)
+          -ms-transform: scale(1.05)
+          transform: scale(1.05)
+          z-index: 5
+
+  .row > .column 
+    display: flex
+    flex-wrap: wrap
+
+
+  .row:after 
+    content: ""
+    display: table
+    clear: both
+
+
+  /* Create four equal columns that floats next to eachother */
+  .column 
+    justify-content: center
+    flex: 33%
+    margin: 0 auto
+
+    img
+       vertical-align: middle
+       object-fit: cover
+
+  /* The Modal (background) */
+  .modal 
+    display: none
+    position: absolute
+    z-index: 1
+    padding-top: 100px
+    left: 0
+    top: 0
+    width: 100%
+    height: 90%
+    overflow: auto
+    background-color: rgba(0,0,0,0.2)
+
+
+  /* Modal Content */
+  .modal-content 
+    position: relative
+    margin: auto
+    padding: 0
+    width: 80vw
+
+  
+
+  /* The Close Button */
+  .close 
+    color: white
+    position: absolute
+    top: 10px
+    right: 25px
+    font-size: 35px
+    font-weight: bold
+
+
+  .close:hover,
+  .close:focus 
+    color: #999
+    text-decoration: none
+    cursor: pointer
+
+
+  /* Hide the slides by default */
+  .mySlides 
+    display: none
+    img
+      display: block
+      margin: 0 auto
+
+
+  /* Next & previous buttons */
+  .prev,
+  .next 
+    cursor: pointer
+    position: absolute
+    top: 50%
+    width: auto
+    padding: 16px
+    margin-top: -50px
+    color: white
+    font-weight: bold
+    font-size: 20px
+    transition: 0.6s ease
+    border-radius: 0 3px 3px 0
+    user-select: none
+    -webkit-user-select: none
+
+
+  /* Position the "next button" to the right */
+  .next 
+    right: 0
+    border-radius: 3px 0 0 3px
+
+
+  /* On hover, add a black background color with a little bit see-through */
+  .prev:hover,
+  .next:hover 
+    background-color: rgba(0, 0, 0, 0.8)
+
+
+  /* Number text (1/3 etc) */
+  .numbertext 
+    color: #f2f2f2
+    font-size: 12px
+    padding: 8px 12px
+    position: absolute
+    top: 0
+
+
+  /* Caption text */
+  .caption-container 
+    text-align: center
+    background-color: black
+    padding: 2px 16px
+    color: white
+
+
+  img.demo 
+    opacity: 0.6
+
+
+  .active,
+  .demo:hover 
+    opacity: 1
+
+
+  img.hover-shadow 
+    transition: 0.3s
+
+
+  .hover-shadow:hover 
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
