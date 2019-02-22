@@ -98,6 +98,11 @@ body
   height: 35px
   background-size: contain
 
+.icon-star
+  background-image: url('../imgs/4stars-icon.png')
+  width: 185px
+  height: 40px
+
 .aside-menu 
   background-color: #4f4d4d
   position: fixed
@@ -638,6 +643,18 @@ body
         z-index: 1
         filter:  opacity(30%)
 
+.labeled-form
+  label
+    display: block
+    text-transform: uppercase
+    margin-top: 10px
+  input
+    border-radius: 10px
+    height: 30px
+    width: 90%
+    line-height: 0
+    margin-top: 5px
+
 #gallery
   position: relative
   .section-title
@@ -652,6 +669,12 @@ body
     .actual
       top: 60%
       width: 800px
+
+  .calc
+    background-color: #4f4d4d
+    padding: 0 100px
+    height: 70px
+    font-weight: bold
 
   .top
     padding: 2% 5% 0 4%
@@ -682,28 +705,7 @@ body
           border-bottom: 2px solid black
   .gallery
     position: relative
-    a 
-      img 
-        float: left
-        width: 20%
-        height: auto
-        border: 2px solid #fff
-        -webkit-transition: -webkit-transform .15s ease
-        -moz-transition: -moz-transform .15s ease
-        -o-transition: -o-transform .15s ease
-        -ms-transition: -ms-transform .15s ease
-        transition: transform .15s ease
-        position:relative
-      
-      
-      &:hover 
-        img 
-          -webkit-transform: scale(1.05)
-          -moz-transform: scale(1.05)
-          -o-transform: scale(1.05)
-          -ms-transform: scale(1.05)
-          transform: scale(1.05)
-          z-index: 5
+    margin: 70px 0
 
   .row > .column 
     display: flex
@@ -735,9 +737,9 @@ body
     left: 0
     top: 0
     width: 100%
-    height: 90%
+    height: 92%
     overflow: auto
-    background-color: rgba(0,0,0,0.2)
+    background-color: rgba(0,0,0,0.5)
 
 
   /* Modal Content */
@@ -746,6 +748,7 @@ body
     margin: auto
     padding: 0
     width: 80vw
+    top: 10%
 
   
 
@@ -772,6 +775,7 @@ body
     img
       display: block
       margin: 0 auto
+      min-height: 600px
 
 
   /* Next & previous buttons */
@@ -836,3 +840,174 @@ body
 
   .hover-shadow:hover 
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+
+
+.top
+  padding: 2% 5% 0 4%
+
+  .front-right
+    float: right
+    font-size: 15pt
+    font-weight: bold
+    letter-spacing: 0.5
+    text-transform: uppercase
+
+    a
+      color: black
+      text-shadow: 1px 1px 20px white
+
+
+.center-title
+  .section-title
+    margin: 0 auto
+    margin-bottom: 17vh
+    display: block
+    width: 800px
+    text-align: center
+    .bg
+      font-size: 7.5vw
+      font-weight: bold
+    .actual
+      top: 60%
+      width: 800px
+
+#reviews
+  position: relative
+  height: auto
+  .section-title
+    margin-bottom: 50px
+    .actual
+      top: 40%
+  .reviews-list
+    margin: 0 auto
+
+    .row
+      display: flex
+      flex-direction: row
+      align-items: center
+
+      .review
+        margin: 0 50px
+        display: flex
+        align-items: center
+        width: 60vw
+        .avatar
+          display: inline-block
+          img
+            width: 150px
+        .content
+          margin-left: 40px 
+          h3
+            text-transform: uppercase
+            line-height: 60px
+            display: inline
+          p
+            width: 80%
+            text-align: justify
+            font-size: 9pt
+          .stars
+            margin-top: 10px
+            span
+              background-size: 120px
+
+#your-review
+  margin: 0 auto
+  width: 80vw
+  .section-title
+    .actual
+      left: 50px
+  
+  .form
+    margin-top: 50px
+    width: 40vw
+    label
+      margin-left: 30px
+    textarea[name=message]
+      display: block
+      width: 90%
+      resize: none
+      height: 60px
+    input[type=submit]
+      margin-top: 30px
+      width: 30%
+      height: 50px
+      font-weight: bold
+  .wrapper
+    display: flex
+    align-items: center
+    justify-content: space-evenly
+    .questions
+      position: relative
+      p
+        position: absolute
+        top: 45%
+        left: 40%
+        color: white
+        font-size: 25pt
+        text-transform: uppercase
+        text-align: center
+      img
+        width: 30vw
+
+#questions
+  position: relative
+  height: auto
+  .section-title
+    margin-left: 100px
+    .actual
+      top: 30%
+  .row
+    display: flex
+    flex-direction: row
+    align-items: center
+
+    .question
+      margin: 20px 100px
+      width: 60vw
+      h3
+        color: red
+      .marker
+        display: inline-block
+        p
+          background-color: red
+          display: inline-block
+          text-align: center
+          color: white
+          padding: 4px 20px
+          font-size: 16pt
+          line-height: 60px
+        .question-label
+          margin-bottom: 30px
+          display: flex
+          align-items: center
+          flex-direction: row
+          span
+            height: 80px
+            width: 80px
+            background-size: 70px
+            background-image: url("../imgs/closed-faq.png")
+        input:checked ~ label
+          span
+            background-image: url("../imgs/opened-faq.png")
+            background-size: 50px
+            width: 80px
+
+        input[type=checkbox]
+          display: none
+      .content
+        position: relative
+        display: none
+      // .content::after
+      //   content: "?"
+      //   font-size: 100pt
+      //   font-weight: bold
+      //   color: red
+      //   position: absolute
+      //   top: -10%
+      //   left: 40%
+      //   z-index: -1
+      //   opacity: 0.3
+
+.your-faq
+  .actual
+    top: 40%

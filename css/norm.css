@@ -20,6 +20,11 @@ html {
  * Remove the margin in all browsers.
  */
 
+a {
+  text-decoration: none
+}
+
+
 * {
   margin: 0;
   padding: 0;

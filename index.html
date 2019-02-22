@@ -4,26 +4,162 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <link rel="stylesheet" href="./stylus/main.css">
   <link rel="stylesheet" href="./css/norm.css">
-  <link rel="stylesheet" href="./css/styles.css">
-  <link rel="stylesheet" href="./css/styles.css.map">
+  
+  <link rel="stylesheet" href="./stylus/main.css.map">
   <title>Document</title>
+  
 </head>
 <body>
   <aside class="aside-menu">
-    <div class="menu-icon"></div>
-    <div class="brand">RVDECO</div>
-    <div class="call-us-icon"></div>
-    <div class="email-icon"></div>
+    <div class="menu-icon">
+      <label for="main-menu"><i class="fas fa-bars"></i></label>
+      <input id="main-menu" type="checkbox">
+      <nav>
+        <div class="hider"></div>
+        <div class="overlap-wrapper">
+          <div class="brand-menu">
+            rvdeco
+          </div>
+          <div class="phone">
+              <span class="icon phone-icon"></span><span>06 50 35 47 52</span>
+          </div>
+          <div class="email">
+              <span class="envelop-icon icon"></span><span>rvdeco@yahoo.com</span>
+          </div>
+          <ul class="menu-items clear-fix">
+            <a class="active" href="#"><li>главная</li></a>
+            <a href="#"><li>калькулятор</li></a>
+            <a href="#"><li>галерея</li></a></li>
+            <a href="#"><li>вопрос/ответ</li></a>
+            <a href="#"><li>отзывы</li></a>
+            <a href="#"><li>контакты</li></a>
+          </ul>
+        </div>
+        <div class="copy-menu">  
+            <span>&copy;</span> <p>  Copyright 2018. <br> All rights reserved.Imprint Privacy Policy</p>
+        </div>
+      </nav>
+    </div>
+    <div class="brand">
+      <div class="rotated-text">
+         <span class="rotated-text__inner"><a class="brand-text" href="#">RVDECO</a></span>
+      </div>
+    </div>
+    <div class="feedback-menu">
+      <div class="call-us-icon">
+          <a href="#call"><span class="icon phone-icon"></span></a>
+      </div>
+      <div class="email-icon">
+          <a href="#email"><span class="envelop-icon icon"></span></a>
+      </div>
+    </div>
     <div class="copyright">
         <div class="rotated-text">
           <span class="rotated-text__inner"> Copyright 2018. <br> All rights reserved.Imprint Privacy Policy</span>
         </div>
-
       <span class="copy">&copy;</span>
     </div>
   </aside>
+  <div class="container">
+    <section id="front">
+      <nav class="top clearfix">
+        <div class="front-left">
+          <div class="social">
+            <a href=""><span class="icon insta-icon"></span></a>
+            <a href=""><span class="icon facebook-icon"></span></a>
+            <a href=""><span class="icon twiter-icon"></span></a>
+          </div>
+          <a class="logo" href="#"></a>
+        </div>
+        <div class="front-right">
+          <a href="">вход | регистрация</a>
+        </div>
+      </nav>
 
-  <!-- <script src="http://localhost:35729/livereload.js" charset="utf-8"></script> -->
+      <div class="center-block">
+        <p class="spec">Специалисты №1 <br> по ремонту</p>
+        <div class="separator-front"></div>
+        <p class="dreams">Вы мечтаете об интерьере, <br> похожем на вас,мы помогаем реализова</p>
+        <a href="" class="calc"><span class="icon calc-icon"></span><span>Рассчитать</span></a>
+      </div>
+      <div class="bottom-buttons">
+          <a href=""><span class="icon env-big-icon red-circle"></span></a>
+        <a href=""><span class="icon phone-big-icon red-circle"></span></a>
+      </div>
+    </section>
+    <section id="why-us">
+        <div class="section-title">
+          <div class="bg"><p>почему</p><p class="second">мы?</p> </div>
+          <p class="actual"><span class="underline">поч</span>ему мы?</p>
+        </div>
+        <div class="blob-block">
+          <div class="blob">
+            <img src="../imgs/blob.png" alt="">
+          </div>
+          <p>более 10 000 потраченных розеток и выключателей</p>
+          <p>более 150 отремонтированных квартир</p>
+          <p>более 150 довольных клиентов</p>
+          <p>более 100 выполненных ремонтов</p>
+          <p>более 10 000 км нанесенной краски</p>
+        </div>
+    </section>
+    <section id="trust">
+         <div class="section-title">
+          <div class="bg"><p>нам</p><p class="second">доверяют</p></div>
+          <p class="actual"><span class="underline">нам</span>доверяют</p>
+        </div>
+        <div class="companys">
+          <div class="row">
+            <img src="../imgs/company1.png" alt="">
+            <img src="../imgs/company2.png" alt="">
+          </div>
+          <div class="row">
+            <img src="../imgs/company3.png" alt="">
+            <img src="../imgs/company4.png" alt="">
+          </div>
+        </div>
+    </section>
+    <section id="contact-us">
+      
+        <div class="wrapper">
+          <div id="newsletter">
+              <div class="section-title">
+                  <div class="bg"><p>свяжись</p> <p class="second">с нами</p></div>
+                  <p class="actual"><span class="underline">свя</span>жись с нами</p>
+                </div>
+            <div class="form-title">
+                <div class="block-left">
+                    <h3>newsletter</h3>
+                    <p>Subscribe to our monthly newsletter. <br> We promise to keep it minimal.</p>
+                </div>
+                <form class="form" action="#">
+                  <div class="block-left">
+                      <input type="text" name='email' placeholder="email address">
+                  </div>
+                  <input type="submit" value="stay updated">
+                </form>
+            </div>
+          </div>
+          <div id="massage-us" >
+            <div class="form-title">
+                <h3>message us</h3>
+                <p>Feel free to drop us a message. With your feedback and help us improve rvdeco.</p>
+            </div>
+            <form class="form" action="#">
+              <div class="group">
+                <input type="text" name="name" placeholder="name">
+                <input type="text" name="email" placeholder="email">
+                <textarea name="message" cols="30" rows="10" placeholder="your message"></textarea>
+                <input type="submit" value='send message'>
+              </div>
+            </form>
+          </div>
+        </div>
+    </section>
+  </div>
+
 </body>
 </html>
