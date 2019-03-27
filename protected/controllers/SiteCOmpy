@@ -1,0 +1,746 @@
+<?php
+
+class SiteController extends Controller {
+
+
+    public function actionIndex() {
+        $this->pageTitle = "RVDeco: Entreprise générale de bâtiment dans le 92 et toute l'Ile de France";
+        $this->render('index');
+		Yii::app()->user->setState('save', null);
+    }
+ 
+   public function actionCalc() {
+        $id = $_POST['id'];
+        $type = $_POST['type'];
+        $calc = Calc::model()->findByPk($id);
+        $calcitem = Calcitem::model()->findAll("rod_select_calc = '".$id."'");
+		Yii::app()->user->setState('cat', $calc->name_text);
+        $i = 0;
+        foreach ($calcitem as $value) {
+            $active = "";
+            if ($i == 0) { $active = 'class = "active"'; } else { $acitve = ""; }
+            $tabs = $tabs.'<li role="presentation" '.$active.'>
+                <a class = "calccategory" data-id = "'.$value->id.'" href="#calc_category_20" aria-controls="calc_category_20" role="tab" data-toggle="tab" aria-expanded="true">'.$value->name2_text.'</a>
+            </li>';
+            $i++;
+        }
+
+        $results =
+            '<ul class="calculator__categories nav nav-tabs" role="tablist">
+			'.$tabs.'
+		</ul>';
+
+
+        echo $results;
+    }
+
+    public function actionCalcbody() {
+        $id = $_POST['id'];
+        $calcitem = Calcitem::model()->findByPk($id);
+        $kind = Kind::model()->findAll("rod_select_calcitem = '".$id."'");
+
+        foreach ($kind as $value) {
+			if ($value->info_bigtexteditor != null) {
+				$info = '<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>';
+			}
+            $body_item = $body_item.'<th><span id = "two">'.$value->name_text.'</span>
+				<button class="calculator__info-btn dark inline" data-toggle="popover" data-trigger="focus" data-placement="bottom" title="" data-content="'.$value->info_bigtexteditor.'">
+				'.$info.'
+				</button>
+			</th>';
+            $body_item_links = $body_item_links.'<th>
+				<a href="#" data-id = "'.$value->id.'" class="item-click btn btn-primary btn-xs">Choisir</a>
+			</th>';
+        }
+
+        $body =
+            '<div class="row">
+			<div class="col-xs-12">
+				<div class="tab-content">
+					<div role="tabpanel" class="tab-pane active" id="calc_category_15">
+						<div class="table-responsive-mode">
+							<table class="table table-bordered">
+								<thead>
+									<tr>
+										<th></th>
+										'.$body_item.'
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th scope="row">
+											<span id = "one">'.$calcitem->name_text.'</span>
+											<button class="calculator__info-btn dark inline" data-toggle="popover" data-trigger="focus" data-placement="bottom" title="" data-content="'.$calcitem->info_bigtexteditor.'" data-original-title="'.$calcitem->name_text.'">
+											<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+											</button>
+										</th>
+										'.$body_item_links.'
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12">
+				<div id = "calcitem">
+				</div>
+			</div>
+			<div id = "calcresults">
+			</div>
+		</div>';
+
+        echo $body;
+    }
+
+
+    public function actionCalcitem1() {
+        $id = $_POST['id'];
+        $critaria = new CDbCriteria();
+        $critaria->condition = "kind_select_kind = '".$id."' AND next_select_questionss = '0'";
+        $critaria->order = "weight ASC";
+        $question = Questionss::model()->find($criteria);
+
+        if ($question->type_select_5 == "choix") {
+            $answers = Questionss::model()->findAll("qid_select_questionss = '" .$question->id . "'");
+            foreach ($answers as $val) {
+                $options = $options . '<option data-id="' . $val->id . '" data-price="' . $val->price_text . '" value="">
+						' . $val->name_text . '
+					</option>';
+            }
+
+            $quest = $quest.'<div class="row  form-group has-feedback" data-action = "'.$c.'" id = "id_'.$c.'" '.$styles.'>
+					<div class="col-md-6 col-xs-11">
+						<div class="form-group has-feedback">
+							<label class="control-label">'.$question->name_text.'</label>
+							<select data-action = "'.$c.'" data-finish = "'.$question->finish_checkbox.'" data-price = "'.$question->price_text.'" data-requare = "'.$question->isrequare_checkbox.'" data-field="select" class="sele form-control">
+								<option selected disabled>
+									Select your option
+								</option>
+								'.$options.'
+							</select>
+						</div>
+					</div>
+				</div>';
+            $i++;
+        }
+		if ($value->info_bigtexteditor != null) {
+			$info = '<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>';
+		}
+        echo $quest.'<button data-count = "'.$c.'" id = "id_'.$c.'" type="submit" class="resultat btn btn-success" disabled>
+			'.$info.'
+			Ajouter dans le devis
+		</button>';
+    }
+
+    public function actionCalcitem() {
+        $id = $_POST['id'];
+
+        $criteria = new CDbCriteria();
+        $criteria->condition = "rod_select_kind = '".$id."'";
+        $criteria->order = "weight_text ASC";
+        $questions = Questionss::model()->findAll($criteria);
+        $i = 0;
+        $c = 1;
+        $s = 1;
+        foreach ($questions as $value) {
+            $options = "";
+
+            if ($c != 1) {
+                $styles = 'style = "display:none;"';
+            }
+
+            if ($value->type_select_12 == "choix") {
+				$answers = Answers::model()->findAll("qid_select_questionss = '" .$value->id . "'");
+                foreach ($answers as $val) {
+                    $check = Questionss::model()->find("next_select_questionss = '".$val->id."'");
+                    $options = $options . '<option data-messagetext = "'.$val->messagetext_text.'" data-finish = "'.$val->finish_checkbox.'" data-action = "'.$check->id.'" data-id="' . $val->id . '" data-price="' . $val->price_text . '" value="'.$val->name_text.'">
+						' . $val->name_text . '
+					</option>';
+                }
+				$check2 = Questionss::model()->find("next_select_questionss = '".$value->id."'");
+                $quest = $quest.'<div data-vid = "'.$value->id.'" data-type = "choix" data-finish = "'.$value->finish_checkbox.'" class="act_'.$s.' row form-group has-feedback my" data-action = "'.$c.'" id = "id_'.$value->id.'" '.$styles.'>
+					<div class="col-md-6 col-xs-11">
+						<div class="form-group has-feedback">
+							<label class="control-label">'.$value->name_text.'</label>
+							<select data-cid = "'.$value->id.'" id = "vid_'.$value->id.'" data-action = "'.$check2->id.'" data-ac = "'.$s.'" data-finish = "'.$value->finish_checkbox.'" data-postfix = "'.$value->postfix_text.'" data-mes = "Нет" data-price = "'.$value->price_text.'" data-field="select" class="sel_'.$s.' sele form-control">
+								<option selected disabled>
+                                    Sélectionner l’option
+								</option>
+								'.$options.'
+							</select>
+						</div>
+					</div>
+				</div>';
+                $i++;
+                $s++;
+            } else if ($value->type_select_12 == "product") {
+                $check = Questionss::model()->find("next_select_questionss = '".$value->id."'");
+                $quest = $quest . '<div data-vid = "'.$value->id.'" data-action = "'.$check->id.'" data-type = "product" data-finish = "'.$value->finish_checkbox.'" class="act_'.$s.' prods form-group has-feedback my" id = "id_'.$value->id.'" '.$styles.'>
+                    <div>
+                        <div>
+                            <label class="control-label">' . $value->name_text . '</label>
+                        </div>
+                        <a data-action = "' . $c . '" data-id = "' . $value->id . '" class="prod-go btn btn-primary btn-lg" data-fancybox="" data-src="#product-modal-185">
+                            <span class="glyphicon glyphicon-modal-window"></span>choix
+                        </a>
+                        <div class = "choise" style = "margin-top:10px;">Продукт не выбран</div>
+                    </div>
+                </div>';
+                $s++;
+
+            } else if ($value->type_select_12 == "checkbox_list") {
+				$check = Questionss::model()->find("next_select_questionss = '".$value->id."'");
+                $quest = $quest.'
+                <div data-vid = "'.$value->id.'" data-type = "checkbox_list" data-finish = "'.$value->finish_checkbox.'" class="act_'.$s.' form-group has-feedback my" data-action = "'.$c.'" id = "id_'.$value->id.'" '.$styles.'>
+                    <div>
+                        <label class="control-label">'.$value->name_text.'</label>
+                    </div>
+                    <a data-action = "'.$check->id.'" data-id = "'.$value->id.'" class="checkbox-go btn btn-primary btn-lg" data-fancybox="" data-src="#product-modal-185" href="javascript:void()">
+                        <span class="glyphicon glyphicon-modal-window"></span>choix
+                    </a>
+                </div>';
+            } else if ($value->type_select_12 == "multiplier") {
+                $check = Questionss::model()->find("next_select_questionss = '".$value->id."'");
+                $quest = $quest.'<div data-vid = "'.$value->id.'" data-type = "multiplier" data-finish = "'.$value->finish_checkbox.'" data-price = "'.$value->price_text.'" class="act_'.$s.' row form-group has-feedback my" data-action = "'.$c.'" id = "id_'.$value->id.'" '.$styles.' data-postfix = "'.$value->postfix_text.'">
+                    <div class="col-md-6 col-xs-11">
+                        <div class="form-group has-feedback">
+                            <label class="control-label">
+                                '.$value->name_text.'
+                            </label>
+                            <div class="input-group">
+                                <input data-action = "'.$check->id.'" data-finish = "'.$value->finish_checkbox.'" data-price = "'.$value->price_text.'" data-field="multiplier" type="number" max="99999" min="1" class="cinput form-control" placeholder="'.$value->name_text.'">
+                                <span class="input-group-addon">
+                                     <b>'.$value->postfix_text.'</b>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>';
+                $s++;
+            } else if ($value->type_select_12 == "square") {
+                $check = Questionss::model()->find("next_select_questionss = '".$value->id."'");
+                $quest = $quest.'<div data-vid = "'.$value->id.'" data-type = "square" data-finish = "'.$value->finish_checkbox.'" data-price = "'.$value->price_text.'" class="act_'.$s.' row form-group has-feedback my" data-action = "'.$c.'" id = "id_'.$value->id.'" '.$styles.' data-postfix = "'.$value->postfix_text.'">
+                    <div class="col-md-6 col-xs-11">
+                        <div class="form-group has-feedback">
+                            <label class="control-label">
+                                '.$value->name_text.'
+                            </label>
+                            <div class="input-group">
+                                <input data-action = "'.$check->id.'" data-finish = "'.$value->finish_checkbox.'" data-price = "'.$value->price_text.'" data-field="square" type="number" max="99999" min="1" class="cinput form-control" placeholder="'.$value->name_text.'">
+                                <span class="input-group-addon">
+                                     <b>'.$value->postfix_text.'</b>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>';
+                $s++;
+            } else if ($value->type_select_12 == "counter") {
+                $check = Questionss::model()->find("next_select_questionss = '".$value->id."'");
+                $quest = $quest.'<div data-vid = "'.$value->id.'" data-cat = "" data-type = "counter" data-finish = "'.$value->finish_checkbox.'" data-price = "'.$value->price_text.'" class="act_'.$s.' row form-group has-feedback my" data-action = "'.$check->id.'" id = "id_'.$value->id.'" '.$styles.' data-postfix = "'.$value->postfix_text.'">
+                    <div class="col-md-6 col-xs-11">
+                        <div class="form-group has-feedback">
+                            <label class="control-label">
+                                '.$value->name_text.'
+                            </label>
+                            <div class="input-group">
+                                <input data-action = "'.$check->id.'" data-finish = "'.$value->finish_checkbox.'" data-price = "'.$value->price_text.'" data-field="counter" type="number" max="99999" min="1" class="cinput form-control" placeholder="'.$value->name_text.'">
+                                <span class="input-group-addon">
+                                     <b>'.$value->postfix_text.'</b>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>';
+                $s++;
+            }
+            $c++;
+        }
+
+        echo $quest.'<button data-count = "'.$s.'" id = "id_'.$c.'" type="submit" class="resultat btn btn-success" disabled>
+			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+			Ajouter dans le devis
+		</button>';
+    }
+
+    public function actionCalccheckbox() {
+        $id = $_POST['id'];
+        $ans = Questionss::model()->find("id = '".$id."'");
+        $answers = Questionss::model()->findAll("qid_select_questionss = '" .$id . "'");
+        $quest = $quest.'<h3 class="control-label">'.$ans->name_text.'</h3>';
+        foreach ($answers as $value) {
+            $quest = $quest . '
+            <div class="checkbox checkbox_in-table" style = "border: 1px solid rgba(128, 128, 128, 0.31);">
+                <label class="block">
+                    <input type="checkbox" data-id="'.$value->id.'" data-price="'.$value->price_text.'" value="'.$value->price_text.'"> '.$value->name_text.'
+                </label>
+            </div>';
+        }
+        $quest = $quest.'<div class="valide btn btn-success" style="padding: 10px 20px; text-transform: uppercase;">Valide</div>';
+        echo $quest;
+    }
+
+    public function actionCalcresults() {
+		$rand = time().rand(1, 1000);
+        //$raschet = file_get_contents("zapis");
+        $mass = $_POST['my_arr'];
+        $count = count($mass);
+
+        $elements = array();
+        $ait = array();
+        $ob_itog = 0;
+        $number = 1;
+        $stop = 0;
+
+        foreach($mass as $value) {
+            $a = explode("|", $value);
+            if (in_array("square", $a) or in_array("counter", $a) or in_array("multiplier", $a)) {
+                $stop = 1;
+            }
+        }
+
+        for ($i = 0; $i <= $count; $i++) {
+            $arr = explode("|", $mass[$i]);
+
+            if ($arr[0] == "choix") {
+                array_push($elements, $arr[3]);
+                if ($stop == 0) {
+					$message = Questionss::model()->find("id = '".$arr[6]."'");
+                    $tbody = $tbody.'<tbody>               
+						<tr>
+							<th class="text-center numbr" scope="row">'.$number.'</th>
+							<td>
+								'.Yii::app()->user->getState('cat').'
+							</td>
+							<td>
+								<div class="calculator__results__message_'.$i.'">
+									'.$message->message_bigtexteditor.'
+								</div>
+							</td>
+							<td class="text-center">
+								<span class="rudik_count">1</span> <span class="rudik_mer">шт.</span>
+							</td>
+							<td>
+								<nobr><span class="rudik_price">'.$arr[3].'</span> €</nobr>
+							</td>
+							<td>
+								<nobr><b class="rudik_total">'.$arr[3].'</b> <b>€</b></nobr>
+							</td>
+							<td class="text-right skrit">
+								<div class="btn-group" role="group" aria-label="...">
+									<a data-id = "'.$rand.'" href="#" class="remove btn btn-default">
+									<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+									</a>
+								</div>
+							</td>
+						</tr>
+					</tbody>';
+					$ob_itog = $ob_itog + $arr[3];
+					$number++;
+                }
+                
+            } else if ($arr[0] == "square") {
+                $vr = 0;
+                $starif = 0;
+                foreach ($elements as $value) {
+                    $vr = $vr + $value * $arr[3];
+                    $starif = $starif + $value;
+                }
+                $tarif = $arr[3];
+                $it = $vr;
+                $elements = array();
+                array_push($ait, $vr);
+
+                $message = Questionss::model()->find("id = '".$arr[6]."'");
+                //preg_match_all('/[0-9]+/', $message->message_bigtexteditor, $ma);
+
+
+                $tbody = $tbody.'<tbody>               
+                    <tr>
+                        <th class="text-center numbr" scope="row">'.$number.'</th>
+                        <td>
+                            '.Yii::app()->user->getState('cat').'
+                        </td>
+                        <td>
+                            <div class="calculator__results__message_'.$i.'">
+                                '.$message->message_bigtexteditor.'
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <span class="rudik_count">'.$arr[3].'</span> <span class="rudik_mer">'.$arr[2].'</span>
+                        </td>
+                        <td>
+                            <nobr><span class="rudik_price">'.$starif.'</span> €</nobr>
+                        </td>
+                        <td>
+                            <nobr><b class="rudik_total">'.$it.'</b> <b>€</b></nobr>
+                        </td>
+                        <td class="text-right skrit">
+                            <div class="btn-group" role="group" aria-label="...">
+                                <a data-id = "'.$rand.'" href="#" class="remove btn btn-default">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>';
+                $ob_itog = $ob_itog + $vr;
+                $number++;
+
+            } else if ($arr[0] == "multiplier") {
+                $asd = count($elements) - 1;
+                $tarif = $elements[$asd];
+                $it = $elements[$asd] * $arr[3];
+                array_push($ait,$elements[$asd] * $arr[3]);
+                $elements = array();
+				$message = Questionss::model()->find("id = '".$arr[6]."'");
+                $tbody = $tbody.'<tbody>
+                    <tr>
+                        <th class="text-center numbr" scope="row">'.$number.'</th>
+                        <td>
+                            '.Yii::app()->user->getState('cat').'
+                        </td>
+                        <td>
+                            <div class="calculator__results__message_'.$i.'">
+                                '.$message->message_bigtexteditor.'
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <span class="rudik_count">'.$arr[3].'</span> <span class="rudik_mer">'.$arr[2].'</span>
+                        </td>
+                        <td>
+                            <nobr><span class="rudik_price">'.$tarif.'</span> €</nobr>
+                        </td>
+                        <td>
+                            <nobr><b class="rudik_total">'.$it.'</b> <b>€</b></nobr>
+                        </td>
+                        <td class=" text-right skrit">
+                            <div class="btn-group" role="group" aria-label="...">
+                                <a data-id = "'.$rand.'" href="#" class="remove btn btn-default">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+
+                </tbody>';
+                $ob_itog = $ob_itog + $it;
+                $number++;
+
+            } else if ($arr[0] == "counter") {
+                $it = $arr[3]*$arr[5];
+                array_push($ait, $arr[3]*$arr[5]);
+				$message = Questionss::model()->find("id = '".$arr[6]."'");
+                $tbody = $tbody.'<tbody>
+                    <tr>
+                        <th class="text-center numbr" scope="row">'.$number.'</th>
+                        <td>
+                            '.Yii::app()->user->getState('cat').'
+                        </td>
+                        <td>
+                            <div class="calculator__results__message_'.$i.'">
+                                '.$message->message_bigtexteditor.'
+                            </div>
+                        </td>
+                       <td class="text-center">
+                            <span class="rudik_count">'.$arr[3].'</span> <span class="rudik_mer">'.$arr[2].'</span>
+                        </td>
+                        <td>
+                            <nobr><span class="rudik_price">'.$tarif.'</span> €</nobr>
+                        </td>
+                        <td>
+                            <nobr><b class="rudik_total">'.$it.'</b> <b>€</b></nobr>
+                        </td>
+                        <td class="text-right skrit">
+                            <div class="btn-group" role="group" aria-label="...">
+                                <a data-id = "'.$rand.'" href="#" class="remove btn btn-default">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+
+                </tbody>';
+                $ob_itog = $ob_itog + $it;
+                $number++;
+
+            } else if ($arr[0] == "product") {
+                array_push($elements, $arr[5]);
+            } else if ($arr[0] == "checkbox_list") {
+				$my_arr = explode(":", $arr[1]);	
+				foreach ($my_arr as $value) {
+					$mod = Questionss::model()->find("id = '".$value."'");
+					$ob_itog = $ob_itog + $mod->price_text;
+					if ($qwerty != null) {
+						$qwerty = $qwerty.", ".$mod->name_text;
+					} else {
+						$qwerty = $mod->name_text;	
+					}
+				}
+				if ($message->message_bigtexteditor != null) {
+					$qwerty = $message->message_bigtexteditor;
+				}
+				$tbody = $tbody.'<tbody>
+                    <tr>
+                        <th class="text-center numbr" scope="row">'.$number.'</th>
+                        <td>
+                            '.Yii::app()->user->getState('cat').'
+                        </td>
+                        <td>
+                            <div class="calculator__results__message_'.$i.'">
+                                '.$qwerty.'
+                            </div>
+                        </td>
+                       <td class="text-center">
+                            <span class="rudik_count">1</span>
+                        </td>
+                        <td>
+                            <nobr><span class="rudik_price">'.$ob_itog.'</span> €</nobr>
+                        </td>
+                        <td>
+                            <nobr><b class="rudik_total">'.$ob_itog.'</b> <b>€</b></nobr>
+                        </td>
+                        <td class="text-right skrit">
+                            <div class="btn-group" role="group" aria-label="...">
+                                <a href="#" data-id = "'.$rand.'" class="remove btn btn-default">
+                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>';
+				$number++;
+			}
+        }
+
+        //print_r($ait);
+		//echo '<pre>';
+        //print_r($mass);
+		//echo '</pre>';
+
+        //echo $good;
+        //echo "<br/>".$type.$price."|".$itog_square;
+
+        $proc = $ob_itog*10/100;
+        $ooo = $proc+$ob_itog;
+		
+		$tr = '<tr class="active">
+                            <td></td>
+                            <td id = "'.$rand.'" colspan="7">
+                                <span class="glyphicon glyphicon-circle-arrow-down"></span>
+                                <b>'.Yii::app()->user->getState('cat').'</b>
+                            </td>
+                        </tr>
+						'.$tbody;
+		$arrsave = Yii::app()->user->getState('save');
+		if (Yii::app()->user->getState('save') == null) {
+			$arrsave = array();
+		}
+		
+		if (count($arrsave) == 0) {
+			//array_push($arrsave, $tr);
+			$arrsave[$rand] = $tr;
+		} else {
+			if (!in_array($tr, $arrsave)) {
+				//array_push($arrsave, $tr);
+				$arrsave[$rand] = $tr;
+			}
+		}
+
+		foreach ($arrsave as $key => $valu) {
+			$ares .= $valu;
+		}
+		
+		Yii::app()->user->setState('save', $arrsave);
+
+
+        $result = '<div class="col-xs-12">
+			<div class="calculator__results">
+				<h2>Devis travaux</h2>
+				<hr>
+				<div class="table-responsive-mode" id = "pdf">
+					<table class="table table-bordered table-hover" id="calculator_result">
+						<thead>
+							<tr>
+								<th class="text-center">#</th>
+								<th>Descriptif de travaux </th>
+								<th>Details</th>
+								<th>Quantité</th>
+								<th>Tarif</th>
+								<th>Total</th>
+								<th class = "skrit"></th>
+							</tr>
+						</thead>
+						'.$ares.'
+						 <tr class="success">
+                            <th class="text-center"></th>
+                            <th colspan="4" class="text-right">
+                                Total HT<br>
+                                TVA
+                                Total TTC'.Yii::app()->user->getState('save').'
+                            </th>
+                            <th>
+                                <nobr><span class="rudik_o_total">'.$ob_itog.'</span> €</nobr>
+                                <br>
+                                <nobr><span class="rudik_o_proc">10%</span></nobr>
+                                <br>
+                                <nobr><span class="rudik_o_result">'.$ooo.'</span> €</nobr>
+                            </th>
+                            <th class="text-right skrit">
+                                <div class="btn-group" role="group" aria-label="...">
+                                    <a href="#" class="remove-all btn btn-danger">
+                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                    </a>
+                                </div>
+                            </th>
+                        </tr>
+					</table>
+				</div>
+				<div class="calculator__results__action">
+					<div class="calculator__results__action__item c_save">
+						<a href="/pdf.php" class="go-pdf btn btn-success btn-lg">Charger le devis</a>
+					</div>
+					<div class="calculator__results__action__item c_send text-right">
+						<a data-fancybox="" data-src="#calc_save" href="#calc_save" class="btn btn-success btn-lg">Envoyez nous le devis</a>
+					</div>
+					
+				</div>
+				<div class="hidden">
+					<div id="calc_save">
+						<form method="post" enctype="multipart/form-data" action="javascript:void(0);" id="calc_save_form">
+							<h3>Envoyez nous le devis</h3>
+							<div class="form-group has-feedback">
+								<label class="control-label" for="title">Votre nom</label>
+								<input id = "nname" value="" type="text" name="user[name]" class="form-control" id="title" placeholder="Votre nom">
+							</div>
+							<div class="form-group has-feedback">
+								<label class="control-label" for="title">Votre numéro de telephone</label>
+								<input id = "nphone" value="" type="text" name="user[phone]" class="form-control" id="title" placeholder="Votre numéro de telephone">
+							</div>
+							<div class="form-group has-feedback">
+								<label class="control-label" for="title">Votre e-mail</label>
+								<input id = "nemail" value="" type="email" name="user[email]" class="form-control" id="title" placeholder="Votre e-mail">
+							</div>
+							<button type="submit" id = "sends" class="send-smeta btn btn-default">Envoyez nous le devis</button>
+						</form>
+						<script>
+					$("#calc_save").on("click", "#sends", function () {
+						var name = $("#nname").val();
+						var phone = $("#nphone").val();
+						var email = $("#nemail").val();
+						$.ajax({
+							type: "POST",
+							url: "/site/send/",
+							data:{name:name, phone:phone, email:email},
+							success: function(data) {
+								$("#calc_save_form").html(data);
+							},
+						});
+					});
+					</script>
+					</div>
+				</div>
+			</div>                      
+		</div>';
+
+        echo $result;
+    }
+
+    public function actionCalcproducts() {
+        $id = $_POST['id'];
+        $quest = Questionss::model()->find("id = '".$id."'");
+		$arr = explode(":", $quest->products_text);
+        if ($arr != null) {
+            foreach ($arr as $value1) {
+				$value = Products::model()->find("id = '".$value1."'");
+                $img = json_decode($value->image_image, true);
+                $kv = "'";
+				$imagesss = null;
+				$images = json_decode($value->images_pimages, true);
+				foreach ($images as $key => $im) {
+					$imagesss .= '<a style="float:left; padding:0;" class="widget-gallery__item_'.$value->id.'" data-fancybox="gallery_61" href="https://admin.devis-travaux-online.fr/upload/Products/full/'.$im.'"><img width="50" class="resposive" src="https://admin.devis-travaux-online.fr/upload/Products/tm/'.$im.'"></a>';
+				}
+                $res = $res . '
+                    <div class="col-md-3 col-sm-4 col-xs-12">
+                        <div class="thumbnail">
+                            <a href="https://admin.devis-travaux-online.fr/upload/Products/full/'.$img[0].'" class="widget-gallery__item_'.$value->id.'" data-fancybox="gallery_62">
+                                <img src="https://admin.devis-travaux-online.fr/upload/Products/full/'.$img[0].'">
+                            </a>
+                            <div class="caption">
+							<div style = "overflow:hidden; display:block;">'.$imagesss.'</div>
+                                <h3>'.$value->title_text.' <span class="label label-info">'.$value->cena_text.'€</span>
+                                </h3>
+								
+            
+                                <p style = "margin-bottom:8px;">'.$value->description_bigtext.'</p>
+								<!--<a target = "_blank" href = "/products/show/id/'.$value->id.'">Подробнее о продукте</a>-->
+                                <p>
+                                    <button data-title = "'.$value->title_text.'" data-fancybox-close="" onclick = "javascript:ProdChoise('.$kv.$value->title_text.$kv.', '.$kv.$value->cena_text.$kv.');" type="button" data-set-select="185" data-set-option="247" data-fancybox-close="" class="pclick btn btn-default" role="button">choix</button>
+                                </p>
+                            </div>
+                        </div>
+                    </div>';
+            }
+			$res = '<button class="fancybox-close-small" title="Close"></button>
+                <div class="container">
+                    <h2>'.$quest->name_text.'</h2>'.$res.'</div>';
+            echo $res;
+        }
+    }
+
+    public function actionZapis() {
+        $type = $_POST['type'];
+        $label = $_POST['label'];
+        $text = $_POST['text'];
+        $price = $_POST['price'];
+        $finish = $_POST['finish'];
+        $dopprice = $_POST['dopprice'];
+
+        $zapis = file_get_contents("zapis");
+        if ($zapis == null) {
+            $zapis = $type."|".$label."|".$text."|".$price."|".$finish."|".$dopprice;
+        } else {
+            $zapis = $zapis."\r\n".$type."|".$label."|".$text."|".$price."|".$finish."|".$dopprice;
+        }
+        file_put_contents("zapis", $zapis);
+    }
+
+    public function actionSend() {
+        
+    }
+	
+	public function actionGettext() {
+		$id = $_POST['id'];
+		$model = Questionss::model()->find("id = '".$id."'");
+		echo $model->messagetext_text;
+	}
+	
+	public function actionGopdf() {
+		$criteria = new CDbCriteria();
+        $criteria->limit = 1;
+        $criteria->order = "id DESC";
+        $number = Smeta::model()->find($criteria);
+        $num = $number->id+1;
+
+        $model = new Smeta();
+        $model->nomer_text = $num;
+        $model->file_file = $num.".pdf";
+        $model->save();
+
+        $_SESSION["pdf_name"] = $num;
+        $_SESSION["pdf"] = $_POST['smeta'];
+	}
+	
+	public function actionDelete() {
+		$id = $_POST['id'];
+		$arrsave = Yii::app()->user->getState('save');	
+		$arrsave[$id] = null;
+		Yii::app()->user->setState('save', $arrsave);	
+	}
+	
+	public function actionAlldelete() {
+		Yii::app()->user->setState('save', null);
+	}
+}
+?>
