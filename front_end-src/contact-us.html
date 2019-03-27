@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <link rel="stylesheet" href="./stylus/main.css">
+  <link rel="stylesheet" href="./css/norm.css">
+  
+  <link rel="stylesheet" href="./stylus/main.css.map">
+  <title>Document</title>
+  
+</head>
+<body>
+  <aside class="aside-menu">
+    <div class="menu-icon">
+      <label for="main-menu"><i class="fas fa-bars"></i></label>
+      <input id="main-menu" type="checkbox">
+      <nav>
+        <div class="hider"></div>
+        <div class="overlap-wrapper">
+          <div class="brand-menu">
+            rvdeco
+          </div>
+          <div class="phone">
+              <span class="icon phone-icon"></span><span>06 50 35 47 52</span>
+          </div>
+          <div class="email">
+              <span class="envelop-icon icon"></span><span>rvdeco@yahoo.com</span>
+          </div>
+          <ul class="menu-items clear-fix">
+            <a class="active" href="#"><li>главная</li></a>
+            <a href="#"><li>калькулятор</li></a>
+            <a href="#"><li>галерея</li></a></li>
+            <a href="#"><li>вопрос/ответ</li></a>
+            <a href="#"><li>отзывы</li></a>
+            <a href="#"><li>контакты</li></a>
+          </ul>
+        </div>
+        <div class="copy-menu">  
+            <span>&copy;</span> <p>  Copyright 2018. <br> All rights reserved.Imprint Privacy Policy</p>
+        </div>
+      </nav>
+    </div>
+    <div class="brand">
+      <div class="rotated-text">
+         <span class="rotated-text__inner"><a class="brand-text" href="#">RVDECO</a></span>
+      </div>
+    </div>
+    <div class="feedback-menu">
+      <div class="call-us-icon">
+          <a href="#call"><span class="icon phone-icon"></span></a>
+      </div>
+      <div class="email-icon">
+          <a href="#email"><span class="envelop-icon icon"></span></a>
+      </div>
+    </div>
+    <div class="copyright">
+        <div class="rotated-text">
+          <span class="rotated-text__inner"> Copyright 2018. <br> All rights reserved.Imprint Privacy Policy</span>
+        </div>
+      <span class="copy">&copy;</span>
+    </div>
+  </aside>
+  <div class="container-my">
+    <section id="cont-form">
+      <nav class="top clearfix">
+        <div class="front-right">
+          <a href="">вход | регистрация</a>
+        </div>
+      </nav>
+       <div class="section-title">
+        <div class="bg"><p>контактная</p><p class="second">форма</p></div>
+        <p class="actual"><span class="underline">кон</span>такты</p>
+      </div>
+      <div class="wrapper">
+        <div class="search-info">
+          <img class="search-icon" src="../imgs/search.png" alt="search">
+          <p>RV DECO</p>
+          <p>24, RUE MARCEAU</p>
+          <p>92130 ISSY LES MOULINEAUX</p>
+          <p><b>www.rvdeco.com</b></p>
+          <p>rvdeco@yahoo.com</p>
+          <p>06.50.35.47.52</p>
+        </div>
+        <div class="form search-form">
+          <label for="name">введите имя</label>
+          <input type="text" name='name'>
+          <label for="email">введите email</label>
+          <input type="text" name="email">
+          <label for="message">введите сообщение</label>
+          <textarea></textarea>
+          <input type="submit" value='отправить'>
+        </div>
+      </div>
+      <div class="google-map">
+        <div id="map"></div>
+            
+
+      </div>
+    </section>
+  </div>
+        <script>
+  function initMap() {
+      // The location of Uluru
+      var uluru = {lat: -25.344, lng: 131.036};
+      // The map, centered at Uluru
+      var map = new google.maps.Map(
+          document.getElementById('map'), {zoom: 4, center: uluru});
+      // The marker, positioned at Uluru
+      var marker = new google.maps.Marker({position: uluru, map: map});
+    }
+        </script>
+ 
+        <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
+        </script>
+</body>
+</html>
